@@ -54,7 +54,31 @@ final class AuthorController extends AbstractController
             );
     }
 
-    
+    #[Route('/editBook/{id}', name: 'app_editBook')]
+public function editBook(ManagerRegistry $mr, Request $request, int $id): Response
+{
+    $em = $mr->getManager();
+    $book = $em->getRepository(Book::class)->find($id);
+
+    if (!$book) {
+        throw $this->createNotFoundException("Le livre avec l'id $id n'existe pas !");
+    }
+
+    $form = $this->createForm(BookType::class, $book);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $em->flush(); 
+        $this->addFlash('success', 'Livre modifié avec succès !');
+        return $this->redirectToRoute('get_books');
+    }
+
+    return $this->render('author/editBook.html.twig', [
+        'formBook' => $form->createView(),
+        'book' => $book,
+    ]);
+}
+
 
     #[Route('/deleteBook/{id}', name: 'app_deleteBook')]
 public function deleteBook(ManagerRegistry $mr, int $id): Response
@@ -63,7 +87,7 @@ public function deleteBook(ManagerRegistry $mr, int $id): Response
     $book = $em->getRepository(Book::class)->find($id); // Recherche le livre 
 
     if (!$book) {
-        throw $this->createNotFoundException("Le livre avec l'id $id n'existe pas !");
+        $this->addFlash('error', 'error erveur !');
     }
    else{
     $em->remove($book);
