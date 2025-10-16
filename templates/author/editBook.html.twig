@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Ajouter un livre{% endblock %}
+{% block title %}Modifier le livre{% endblock %}
 
 {% block body %}
 <div class="container mt-5 mb-5">
@@ -8,10 +8,10 @@
         <div class="col-md-8 col-lg-6">
 
             <div class="card border-0 shadow-lg">
-                <div class="card-header bg-gradient text-white text-center py-4 border-0" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                    <i class="bi bi-book-fill fs-1 mb-2"></i>
-                    <h2 class="mb-0 fw-bold">Ajouter un Livre</h2>
-                    <p class="mb-0 opacity-75 small">Remplissez les informations ci-dessous</p>
+                <div class="card-header bg-gradient text-white text-center py-4 border-0" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    <i class="bi bi-pencil-square fs-1 mb-2"></i>
+                    <h2 class="mb-0 fw-bold">Modifier le Livre</h2>
+                    <p class="mb-0 opacity-75 small">Mettez à jour les informations</p>
                 </div>
                 <div class="card-body p-4">
 
@@ -21,7 +21,7 @@
                         {{ form_label(formBook.title, 'Titre du livre', {'label_attr': {'class': 'form-label fw-semibold text-dark'}}) }}
                         <div class="input-group">
                             <span class="input-group-text bg-light border-end-0">
-                                <i class="bi bi-journal-text text-primary"></i>
+                                <i class="bi bi-journal-text text-danger"></i>
                             </span>
                             {{ form_widget(formBook.title, {'attr': {'class': 'form-control border-start-0 ps-0', 'placeholder': 'Ex: Le Petit Prince'}}) }}
                         </div>
@@ -32,7 +32,7 @@
                         {{ form_label(formBook.description, 'Description', {'label_attr': {'class': 'form-label fw-semibold text-dark'}}) }}
                         <div class="input-group align-items-start">
                             <span class="input-group-text bg-light border-end-0 pt-2">
-                                <i class="bi bi-card-text text-primary"></i>
+                                <i class="bi bi-card-text text-danger"></i>
                             </span>
                             {{ form_widget(formBook.description, {'attr': {'class': 'form-control border-start-0 ps-0', 'rows': 5, 'placeholder': 'Décrivez brièvement le contenu du livre...'}}) }}
                         </div>
@@ -43,7 +43,7 @@
                         {{ form_label(formBook.publishedAt, 'Date de publication', {'label_attr': {'class': 'form-label fw-semibold text-dark'}}) }}
                         <div class="input-group">
                             <span class="input-group-text bg-light border-end-0">
-                                <i class="bi bi-calendar-event text-primary"></i>
+                                <i class="bi bi-calendar-event text-danger"></i>
                             </span>
                             {{ form_widget(formBook.publishedAt, {'attr': {'class': 'form-control border-start-0 ps-0'}}) }}
                         </div>
@@ -54,21 +54,26 @@
                         {{ form_label(formBook.author, 'Auteur', {'label_attr': {'class': 'form-label fw-semibold text-dark'}}) }}
                         <div class="input-group">
                             <span class="input-group-text bg-light border-end-0">
-                                <i class="bi bi-person-fill text-primary"></i>
+                                <i class="bi bi-person-fill text-danger"></i>
                             </span>
                             {{ form_widget(formBook.author, {'attr': {'class': 'form-select border-start-0 ps-0'}}) }}
                         </div>
                         {{ form_errors(formBook.author) }}
                     </div>
 
+                    <div class="alert alert-info border-0 bg-light d-flex align-items-center mb-4">
+                        <i class="bi bi-info-circle-fill text-info me-2 fs-5"></i>
+                        <small class="mb-0">Vérifiez bien les modifications avant de valider.</small>
+                    </div>
+
                     <div class="d-grid gap-2 mt-4">
-                        <button type="submit" class="btn btn-lg text-white fw-semibold py-3 shadow-sm" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none;">
-                            <i class="bi bi-plus-circle me-2"></i>
-                            Ajouter le livre
+                        <button type="submit" class="btn btn-lg text-white fw-semibold py-3 shadow-sm" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border: none;">
+                            <i class="bi bi-check-circle me-2"></i>
+                            Mettre à jour le livre
                         </button>
                         <a href="{{ path('get_books') }}" class="btn btn-outline-secondary">
-                            <i class="bi bi-arrow-left me-2"></i>
-                            Retour à la liste
+                            <i class="bi bi-x-circle me-2"></i>
+                            Annuler les modifications
                         </a>
                     </div>
 
@@ -83,8 +88,8 @@
 
 <style>
     .form-control:focus, .form-select:focus {
-        border-color: #667eea;
-        box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        border-color: #f5576c;
+        box-shadow: 0 0 0 0.2rem rgba(245, 87, 108, 0.25);
     }
     
     .card {
@@ -103,6 +108,10 @@
     .btn:hover {
         transform: translateY(-2px);
         transition: all 0.3s ease;
+    }
+    
+    .alert {
+        border-radius: 10px;
     }
 </style>
 {% endblock %}
