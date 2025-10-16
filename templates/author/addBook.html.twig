@@ -1,1 +1,53 @@
-{{form(formBook)}}
+{% extends "base.html.twig" %}
+
+{% block title %}Ajouter un livre{% endblock %}
+
+{% block body %}
+<div class="container mt-5 ">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white text-center">
+                    <h2>Ajouter un Livre</h2>
+                </div>
+                <div class="card-body">
+
+                    {{ form_start(formBook) }}
+
+                    <div class="mb-3">
+                        {{ form_label(formBook.title, 'Titre', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(formBook.title, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(formBook.title) }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form_label(formBook.description, 'Description', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(formBook.description, {'attr': {'class': 'form-control', 'rows': 4}}) }}
+                        {{ form_errors(formBook.description) }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form_label(formBook.publishedAt, 'Date de publication', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(formBook.publishedAt, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(formBook.publishedAt) }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form_label(formBook.author, 'Auteur', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(formBook.author, {'attr': {'class': 'form-select'}}) }}
+                        {{ form_errors(formBook.author) }}
+                    </div>
+
+                   <div class="mb-3 text-center">
+                        <button type="submit" class="btn btn-success">Ajouter</button>
+                    </div>
+                    {{ form_end(formBook) }}
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

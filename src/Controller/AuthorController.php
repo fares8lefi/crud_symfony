@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Repository\AuthorRepository;
+use App\Repository\BookRepository ;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -13,12 +15,15 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class AuthorController extends AbstractController
 {
-    #[Route('/author', name: 'app_author')]
-    public function index(): Response
+    
+#[Route('/getAuthers', name: 'get_author')]
+    public function getAuthers(AuthorRepository $author): Response
     {
-        return $this->render('author/index.html.twig', [
+         $authors= $author->findAll();
+        return $this->render('author/getAuthers.html.twig', [
             'controller_name' => 'AuthorController',
-        ]);
+            'authors' => $authors]
+            );
     }
 
      #[Route('/addBook', name: 'app_addBook')]
@@ -31,10 +36,43 @@ final class AuthorController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $em->persist($book); // prepare la requete
             $em->flush(); // execute la requete
+            return $this->redirectToRoute('get_books');
     }
     return $this->render('author/addBook.html.twig', [
     'formBook' => $form->createView()
 ]);
+   
 
 }
+ #[Route('/getBooks', name: 'get_books')] 
+    public function getBooks(BookRepository $b): Response
+    {
+         $books= $b->findAll(); 
+        return $this->render('author/getbooks.html.twig', [
+            'controller_name' => 'AuthorController',
+            'books' => $books]
+            );
+    }
+
+    
+
+    #[Route('/deleteBook/{id}', name: 'app_deleteBook')]
+public function deleteBook(ManagerRegistry $mr, int $id): Response
+    {
+    $em = $mr->getManager(); //demande d'acces a l'entity manager
+    $book = $em->getRepository(Book::class)->find($id); // Recherche le livre 
+
+    if (!$book) {
+        throw $this->createNotFoundException("Le livre avec l'id $id n'existe pas !");
+    }
+   else{
+    $em->remove($book);
+    $em->flush(); 
+
+    return $this->redirectToRoute('get_books');
+   }
+    return $this->render('author/getbooks.html.twig', [
+            'controller_name' => 'AuthorController']
+            );
+    }
 }

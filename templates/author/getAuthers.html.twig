@@ -1,0 +1,9 @@
+{% if authors is empty%}
+    <p> list is empty</p>
+{% else %}
+        
+            {% for author in authors %}
+                <p> {{ author.name }} </p>
+            {% endfor %}
+        
+{% endif %}
