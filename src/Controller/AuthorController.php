@@ -99,4 +99,23 @@ public function deleteBook(ManagerRegistry $mr, int $id): Response
             'controller_name' => 'AuthorController']
             );
     }
+
+     #[Route('/searchByCategory', name: 'app_searchByCategory')]
+public function searchByCategory(BookRepository $BookRepository, Request $Request): Response
+    {
+     $category = $Request->query->get('category');
+     
+    if(empty($category)){
+        throw $this->createNotFoundException("La categorie est vide !");
+    }
+ $books = $BookRepository->searchByCategory($category);
+        $count = count($books);
+    return $this->render('author/searchCategory.html.twig', [
+            'controller_name' => 'AuthorController',
+            'books' => $books,
+            'count' => $count,
+            'category' => $category
+            ]
+            );
+    }
 }
