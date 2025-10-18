@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class BookType extends AbstractType
 {
@@ -18,6 +19,16 @@ class BookType extends AbstractType
             ->add('description')
             ->add('publishedAt', null, [
                 'widget' => 'single_text',
+            ])
+            ->add('category', ChoiceType::class, [
+                'choices' => [
+                    'Romantic' => 'Romantic',
+                    'Action'   => 'Action',
+                    'Comedy'   => 'Comedy',
+                    'Horror'   => 'Horror',
+                ],
+                'placeholder' => 'Sélectionner une catégorie',
+                'required' => true,
             ])
             ->add('author', EntityType::class, [
                 'class' => Author::class,
