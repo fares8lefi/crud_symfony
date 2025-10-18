@@ -51,6 +51,17 @@
                     </div>
 
                     <div class="mb-4">
+                        {{ form_label(formBook.category, 'Date de publication', {'label_attr': {'class': 'form-label fw-semibold text-dark'}}) }}
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0">
+                                <i class="bi bi-calendar-event text-primary"></i>
+                            </span>
+                            {{ form_widget(formBook.category, {'attr': {'class': 'form-control border-start-0 ps-0'}}) }}
+                        </div>
+                        {{ form_errors(formBook.category) }}
+                    </div>
+
+                    <div class="mb-4">
                         {{ form_label(formBook.author, 'Auteur', {'label_attr': {'class': 'form-label fw-semibold text-dark'}}) }}
                         <div class="input-group">
                             <span class="input-group-text bg-light border-end-0">
