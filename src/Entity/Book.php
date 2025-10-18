@@ -25,6 +25,9 @@ class Book
     #[ORM\ManyToOne(inversedBy: 'books')]
     private ?Author $author = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $category = null;
+
 
     public function getId(): ?int
     {
@@ -75,6 +78,18 @@ class Book
     public function setAuthor(?Author $author): static
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getCategory(): ?string
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?string $category): static
+    {
+        $this->category = $category;
 
         return $this;
     }
